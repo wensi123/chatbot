@@ -1,108 +1,190 @@
-body {
-    font-family: Arial, sans-serif;
+/* static/style.css */
+:root {
+    --primary-color: #007bff; /* 主题蓝 */
+    --secondary-color: #6c757d; /* 次要灰 */
+    --light-bg: #f8f9fa; /* 浅背景色 */
+    --dark-text: #343a40; /* 深色文本 */
+    --light-text: #ffffff; /* 浅色文本 */
+    --border-color: #dee2e6; /* 边框色 */
+    --user-message-bg: var(--primary-color);
+    --bot-message-bg: #e9ecef;
+    --bot-text-color: #212529;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
-    background-color: #f4f4f9;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: #e0e5ec; /* 更柔和的背景 */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    color: #333;
+    min-height: 100vh;
+    color: var(--dark-text);
+    padding: 10px; /* 给小屏幕一些边距 */
 }
 
-.chat-container {
-    width: 90%;
-    max-width: 600px;
-    height: 80vh;
-    max-height: 700px;
-    background-color: #fff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+.chat-app-container {
+    width: 100%;
+    max-width: 700px; /* 可以调整聊天窗口最大宽度 */
+    height: 90vh;
+    max-height: 800px; /* 可以调整聊天窗口最大高度 */
+    background-color: var(--light-text);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: hidden; /* 确保子元素不会溢出圆角 */
 }
 
+/* Header */
+.chat-header {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.chat-header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #28a745; /* Green for online */
+    display: inline-block;
+}
+.status-indicator.offline {
+    background-color: #dc3545; /* Red for offline */
+}
+
+/* Chat Box */
 .chat-box {
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
-    border-bottom: 1px solid #eee;
-}
-
-.message {
-    margin-bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 18px;
-    line-height: 1.4;
-    max-width: 80%;
-    word-wrap: break-word;
-}
-
-.user-message {
-    background-color: #007bff;
-    color: white;
-    margin-left: auto;
-    border-bottom-right-radius: 5px;
-}
-
-.bot-message {
-    background-color: #e9ecef;
-    color: #333;
-    margin-right: auto;
-    border-bottom-left-radius: 5px;
-}
-
-.input-area {
+    background-color: var(--light-bg);
     display: flex;
-    padding: 15px;
-    background-color: #f8f9fa;
+    flex-direction: column;
 }
 
-#user-input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    margin-right: 10px;
-    resize: none;
-    font-size: 1rem;
-    min-height: 24px; /* Min height for one line */
-    max-height: 100px; /* Max height for ~4-5 lines */
-    overflow-y: auto; /* Add scroll if text exceeds max-height */
+/* --- Scrollbar styles (optional, for Webkit browsers) --- */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-box::-webkit-scrollbar-track {
+    background: var(--light-bg);
+    border-radius: 10px;
+}
+.chat-box::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }
 
-#send-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 1rem;
+/* Messages */
+.message {
+    display: flex;
+    align-items: flex-end; /* 头像和气泡底部对齐 */
+    margin-bottom: 15px;
+    max-width: 85%; /* 消息最大宽度 */
 }
 
-#send-button:hover {
-    background-color: #0056b3;
+.message-content {
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    line-height: 1.5;
+    word-wrap: break-word; /* 旧属性，用 overflow-wrap 更好 */
+    overflow-wrap: break-word; /* 标准属性 */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-/* Typing indicator (optional, simple version) */
-.typing-indicator span {
+.message-content p {
+    margin: 0;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 5px; /* 调整头像和气泡间距 */
+}
+
+/* User Message */
+.user-message {
+    margin-left: auto; /* 推动到右边 */
+    flex-direction: row-reverse; /* 头像在右 */
+}
+.user-message .message-content {
+    background-color: var(--user-message-bg);
+    color: var(--light-text);
+    border-bottom-right-radius: 2px; /* 模仿一些聊天应用的小尾巴 */
+}
+.user-message .avatar {
+    background-color: var(--secondary-color);
+    color: var(--light-text);
+    margin-left: 10px; /* 头像和气泡间距 */
+}
+
+/* Bot Message */
+.bot-message {
+    margin-right: auto; /* 推动到左边 */
+}
+.bot-message .message-content {
+    background-color: var(--bot-message-bg);
+    color: var(--bot-text-color);
+    border-bottom-left-radius: 2px; /* 模仿一些聊天应用的小尾巴 */
+}
+.bot-message .avatar {
+    background-color: #6f42c1; /* 紫色系 AI 头像 */
+    color: var(--light-text);
+    margin-right: 10px; /* 头像和气泡间距 */
+    /* 可以用图片代替文字：
+    background-image: url('path/to/bot-avatar.png');
+    background-size: cover;
+    text-indent: -9999px; // Hide text if image is used
+    */
+}
+
+
+/* Typing indicator in bot message */
+.bot-message .typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 8px 0; /* 给打字点一些空间 */
+}
+.bot-message .typing-indicator span {
     display: inline-block;
     width: 8px;
     height: 8px;
     margin: 0 2px;
-    background-color: #aaa;
+    background-color: #aaa; /* 可以用 var(--secondary-color) */
     border-radius: 50%;
     animation: blink 1.4s infinite both;
 }
-
-.typing-indicator span:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.typing-indicator span:nth-child(3) {
-    animation-delay: 0.4s;
-}
+.bot-message .typing-indicator span:nth-child(1) { animation-delay: 0.0s; }
+.bot-message .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.bot-message .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes blink {
     0% { opacity: 0.2; }
@@ -110,23 +192,100 @@ body {
     100% { opacity: 0.2; }
 }
 
-#send-button.loading {
-    background-color: #0056b3; /* 一个稍暗的颜色表示加载 */
-    cursor: wait; /* 更改鼠标指针 */
+/* Input Area */
+.chat-input-area {
+    display: flex;
+    align-items: center; /* 垂直居中输入框和按钮 */
+    padding: 15px 20px;
+    background-color: var(--light-text);
+    border-top: 1px solid var(--border-color);
 }
 
-#send-button.loading::after {
+#user-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 22px; /* 更圆润的输入框 */
+    margin-right: 10px;
+    resize: none; /* 禁止用户调整大小 */
+    font-size: 1rem;
+    line-height: 1.4; /* 保证单行文本垂直居中 */
+    min-height: 44px; /* 基于 padding 和 line-height 计算的单行高度 */
+    max-height: 120px; /* 限制最大高度 */
+    overflow-y: auto; /* 内容超出时显示滚动条 */
+    background-color: var(--light-bg); /* 输入框背景色 */
+    color: var(--dark-text);
+}
+#user-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#send-button {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: none;
+    border-radius: 50%; /* 圆形按钮 */
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    flex-shrink: 0; /* 防止按钮被挤压 */
+}
+#send-button svg {
+    width: 20px; /* 调整SVG大小 */
+    height: 20px;
+}
+#send-button:hover {
+    background-color: #0056b3; /* 主题色加深 */
+}
+#send-button:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+}
+#send-button.loading svg { /* 如果想在加载时替换图标为spinner */
+    display: none; /* 隐藏发送图标 */
+}
+#send-button.loading::after { /* 加载中的 spinner */
     content: '';
     display: inline-block;
-    width: 1em;
-    height: 1em;
-    margin-left: 8px;
-    border: 2px solid #fff;
-    border-top-color: transparent;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--light-text);
     border-radius: 50%;
-    animation: spin 0.6s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+/* 响应式调整 */
+@media (max-width: 600px) {
+    .chat-app-container {
+        height: 100vh; /* 手机上占满全屏 */
+        max-height: none;
+        border-radius: 0;
+    }
+    .chat-header h1 {
+        font-size: 1.1rem;
+    }
+    .chat-box {
+        padding: 15px;
+    }
+    .message {
+        max-width: 90%;
+    }
+    .chat-input-area {
+        padding: 10px 15px;
+    }
+    #user-input {
+        padding: 10px 12px;
+        min-height: 40px;
+    }
+    #send-button {
+        width: 40px;
+        height: 40px;
+    }
 }

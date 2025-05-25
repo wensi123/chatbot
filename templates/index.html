@@ -3,18 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聊天机器人</title>
+    <title>智能聊天助手</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- 可以引入一个图标库，例如 Font Awesome (可选) -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
 </head>
 <body>
-    <div class="chat-container">
+    <div class="chat-app-container">
+        <header class="chat-header">
+            <h1>智能聊天助手</h1>
+            <span class="status-indicator online"></span> <!-- 在线状态指示器 -->
+        </header>
         <div id="chat-box" class="chat-box">
-            <!-- 聊天消息将在这里显示 -->
+            <!-- 初始欢迎消息 (可以由JS动态添加或静态放置) -->
+            <div class="message bot-message">
+                <div class="avatar bot-avatar">AI</div>
+                <div class="message-content">
+                    <p>你好！我是您的智能聊天助手，有什么可以帮助您的吗？</p>
+                </div>
+            </div>
         </div>
-        <div class="input-area">
-            <textarea id="user-input" placeholder="输入你的消息..." rows="2"></textarea>
-            <button id="send-button">发送</button>
-        </div>
+        <footer class="chat-input-area">
+            <textarea id="user-input" placeholder="输入消息..." rows="1"></textarea>
+            <button id="send-button" title="发送消息">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+                </svg>
+            </button>
+        </footer>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
