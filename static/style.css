@@ -109,3 +109,24 @@ body {
     20% { opacity: 1; }
     100% { opacity: 0.2; }
 }
+
+#send-button.loading {
+    background-color: #0056b3; /* 一个稍暗的颜色表示加载 */
+    cursor: wait; /* 更改鼠标指针 */
+}
+
+#send-button.loading::after {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-left: 8px;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
