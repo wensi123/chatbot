@@ -109,9 +109,10 @@ body {
     padding: 10px 15px;
     border-radius: var(--border-radius);
     line-height: 1.5;
-    word-wrap: break-word; /* 旧属性，用 overflow-wrap 更好 */
-    overflow-wrap: break-word; /* 标准属性 */
+    /* word-wrap: break-word; 旧属性，用 overflow-wrap 更好 */
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    min-width: 0; 
+    overflow-wrap: break-word; /* 标准属性 */
 }
 
 .message-content p {
@@ -119,15 +120,18 @@ body {
 }
 
 .avatar {
-    width: 36px;
-    height: 36px;
+    width: 36px;       /* 固定宽度 */
+    height: 36px;      /* 固定高度 */
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
     font-size: 0.9rem;
-    margin-bottom: 5px; /* 调整头像和气泡间距 */
+    /* margin-bottom: 5px; /* 之前的这个可能不需要了，因为 flex-end 对齐 */
+    flex-shrink: 0;    /*  重要：防止头像在空间不足时被压缩 */
+    align-self: flex-end; /* 让头像在交叉轴上与消息气泡底部对齐 */
+                          /* 如果希望顶部对齐，则用 flex-start */
 }
 
 /* User Message */
