@@ -160,7 +160,7 @@ body {
     border-bottom-left-radius: 2px; /* 模仿一些聊天应用的小尾巴 */
 }
 .bot-message .avatar {
-    background-color: #6f42c1; /* 紫色系 AI 头像 */
+    background-color: #007bff; /* 蓝色系 AI 头像 */
     color: var(--light-text);
     margin-right: 10px; /* 头像和气泡间距 */
     /* 可以用图片代替文字：
