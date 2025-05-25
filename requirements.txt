@@ -1,0 +1,5 @@
+Flask
+transformers
+torch
+sentencepiece # Qwen tokenizer 可能需要
+accelerate # 推荐，即使是CPU，有时也能优化加载
